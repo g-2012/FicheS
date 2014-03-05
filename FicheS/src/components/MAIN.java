@@ -47,6 +47,7 @@ public class MAIN {
 		
 		Obs testobs=new Obs();
 		testobs.lectureXML(fichierobs);
+		
 
 
 		}

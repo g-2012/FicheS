@@ -420,136 +420,141 @@ public class Obs {
 
 		// Création du lien vers le fichier d'obs
 		SAXBuilder builder = new SAXBuilder();
-		Document docobs = builder.build(new FileInputStream(fichier));
 		
-//		try {
-//			 Document docobs = builder.build(new FileInputStream(fichier));
-//		  
-//		  } catch (FileNotFoundException e) {
-//			  System.out.println("Fichier non trouvé");
-//			  
-//
-//		  }
+		
+		try {
+			 Document docobs = builder.build(new FileInputStream(fichier));
+				// Récupération de la racine du fichier
+				Element root = docobs.getRootElement();
 
-		// Récupération de la racine du fichier
-		Element root = docobs.getRootElement();
+				// Entrée dans la balise obs
+				Element infoObs = (Element) root.getChild("Observation");
 
-		// Entrée dans la balise obs
-		Element infoObs = (Element) root.getChild("Observation");
+				// Création d'un lien vers le fichier d'antenne lus dans le fichier
+				// d'obs
 
-		// Création d'un lien vers le fichier d'antenne lus dans le fichier
-		// d'obs
+				// CODE D ORGINE
+				// Document docant = builder.build(new FileInputStream(fichierant));
+				// FileInputStream(infoObs.getChild("ant").getText()));
 
-		// CODE D ORGINE
-		// Document docant = builder.build(new FileInputStream(fichierant));
-		// FileInputStream(infoObs.getChild("ant").getText()));
+				// POUR LES TEST
+				String nomfichierant1 = infoObs.getChild("ant").getText();
+				String nomfichierant2 = ".xml";
+				String nomfichierant = nomfichierant1 + nomfichierant2;
+			File fichierant = new File("D:\\G2\\Projet_Java\\", nomfichierant);
+			try {
+				Document docant = builder.build(new FileInputStream(fichierant));
 
-		// POUR LES TEST
-		String nomfichierant1 = infoObs.getChild("ant").getText();
-		String nomfichierant2 = ".xml";
-		String nomfichierant = nomfichierant1 + nomfichierant2;
-		File fichierant = new File("D:\\G2\\Projet_Java\\", nomfichierant);
-		Document docant = builder.build(new FileInputStream(fichierant));
+				// IL FAUT GERER LES REPERTOIRES
 
-		// IL FAUT GERER LES REPERTOIRES
+				// Création de la racine
+				Element rootant = docant.getRootElement();
+				// Etrée dans la balise
+				Element infoAnt = (Element) rootant.getChild("Antenne");
 
-		// Création de la racine
-		Element rootant = docant.getRootElement();
-		// Etrée dans la balise
-		Element infoAnt = (Element) rootant.getChild("Antenne");
+				// Récupération des informations dans le xml
+				
+				//partie antenne
+				String TempNomAnt = (infoAnt.getChild("ant").getText());
+				String TempDesIGS = (infoAnt.getChild("DIGS").getText());
+				String TempMesHA = (infoAnt.getChild("HA").getText());
+				String TempLienImg = (infoAnt.getChild("img").getText());
+				String TempR = (infoAnt.getChild("R").getText());
+				String TempHauteurARP = (infoAnt.getChild("DARPBA").getText());
+				
+				this.antenne = new Antenne(TempNomAnt, TempDesIGS, TempMesHA, TempLienImg,
+						TempR, TempHauteurARP);
+				
+				this.C.setCtrlHARP(infoObs.getChild("HA").getText());
+				
+				if (C.getctrlHARP() == "crochet") {
+					this.A.setLectureCrochet(infoObs.getChild("LC").getText());
+					this.A.setL(infoObs.getChild("L").getText());
+					this.A.setHf(infoObs.getChild("Hf").getText());
+					this.A.setD1(infoObs.getChild("1D").getText());
+					this.A.setD2(infoObs.getChild("2D").getText());
 
-		// Récupération des informations dans le xml
+				}
 
-		//new Obs();
-//		G = new Generalites();
-//		D = new DescpA();
-//		A = new Hauteur();
-//		E = new Enregistrement();
-//		C = new Controle();
-//		R = new Remarque();
+				else if (C.getctrlHARP() == "fract") {
+					this.A.setHv1(infoObs.getChild("HV1").getText());
+					this.A.setHv2(infoObs.getChild("HV2").getText());
+					this.A.setHctrl(infoObs.getChild("Hctrl").getText());
+					this.A.setCalcp(infoObs.getChild("Hprec").getText());
+					this.A.setL(infoObs.getChild("L").getText());
+					this.A.setHf(infoObs.getChild("HF").getText());
 
-		String TempNomAnt = (infoAnt.getChild("ant").getText());
-		String TempDesIGS = (infoAnt.getChild("DIGS").getText());
-		String TempMesHA = (infoAnt.getChild("HA").getText());
-		String TempLienImg = (infoAnt.getChild("img").getText());
-		String TempR = (infoAnt.getChild("R").getText());
-		String TempHauteurARP = (infoAnt.getChild("DARPBA").getText());
+				} else if (C.getctrlHARP() == "chok") {
 
-		this.antenne = new Antenne(TempNomAnt, TempDesIGS, TempMesHA, TempLienImg,
-				TempR, TempHauteurARP);
+				}
+			}
+			catch (FileNotFoundException e)
+			  {
+				  System.out.println("Fichier antenne non trouvé, on retourne rien");
+				  
+					
+					return null;
+			  }
 
-		D.setNomAntenne(infoObs.getChild("ant").getText());
-		G.setMission(infoObs.getChild("mission").getText());
-		G.setOperateur(infoObs.getChild("op").getText());
-		G.setRepere(infoObs.getChild("rep").getText());
-		G.setPoint(infoObs.getChild("pt").getText());
-		G.setLatDeg(infoObs.getChild("latdeg").getText());
-		G.setLatMin(infoObs.getChild("latmin").getText());
-		G.setLatSec(infoObs.getChild("latsec").getText());
-		G.setLonDeg(infoObs.getChild("londeg").getText());
-		G.setLonMin(infoObs.getChild("lonmin").getText());
-		G.setLonSec(infoObs.getChild("lonsec").getText());
-		C.setNivelle(infoObs.getChild("niv").getText());
-		C.setCtrlHARP(infoObs.getChild("niv").getText());
-		E.setNomEtude(infoObs.getChild("job").getText());
-		D.setSerieA(infoObs.getChild("serialant").getText());
-		D.setSerieR(infoObs.getChild("serialrecept").getText());
-		E.setEchantillonage(infoObs.getChild("ech").getText());
-		E.setAngleCoup(infoObs.getChild("coup").getText());
-		E.setHdebut(infoObs.getChild("beginHourH").getText());
-		E.setMdebut(infoObs.getChild("beginHourM").getText());
-		E.setSdebut(infoObs.getChild("beginHourS").getText());
-		E.setHfin(infoObs.getChild("endHourH").getText());
-		E.setMfin(infoObs.getChild("endHourM").getText());
-		E.setSfin(infoObs.getChild("endHourS").getText());
-		E.setDyyyy(infoObs.getChild("beginDateA").getText());
-		E.setDMM(infoObs.getChild("beginDateM").getText());
-		E.setDDD(infoObs.getChild("beginDateJ").getText());
-		E.setFyyyy(infoObs.getChild("endDateA").getText());
-		E.setFMM(infoObs.getChild("endDateM").getText());
-		E.setFDD(infoObs.getChild("endDateJ").getText());
-		E.setTUHN(infoObs.getChild("TUHN").getText());
+				D.setNomAntenne(infoObs.getChild("ant").getText());
+				G.setMission(infoObs.getChild("mission").getText());
+				G.setOperateur(infoObs.getChild("op").getText());
+				G.setRepere(infoObs.getChild("rep").getText());
+				G.setPoint(infoObs.getChild("pt").getText());
+				G.setLatDeg(infoObs.getChild("latdeg").getText());
+				G.setLatMin(infoObs.getChild("latmin").getText());
+				G.setLatSec(infoObs.getChild("latsec").getText());
+				G.setLonDeg(infoObs.getChild("londeg").getText());
+				G.setLonMin(infoObs.getChild("lonmin").getText());
+				G.setLonSec(infoObs.getChild("lonsec").getText());
+				C.setNivelle(infoObs.getChild("niv").getText());
+				C.setCtrlHARP(infoObs.getChild("HA").getText());
+				E.setNomEtude(infoObs.getChild("job").getText());
+				D.setSerieA(infoObs.getChild("serialant").getText());
+				D.setSerieR(infoObs.getChild("serialrecept").getText());
+				E.setEchantillonage(infoObs.getChild("ech").getText());
+				E.setAngleCoup(infoObs.getChild("coup").getText());
+				E.setHdebut(infoObs.getChild("beginHourH").getText());
+				E.setMdebut(infoObs.getChild("beginHourM").getText());
+				E.setSdebut(infoObs.getChild("beginHourS").getText());
+				E.setHfin(infoObs.getChild("endHourH").getText());
+				E.setMfin(infoObs.getChild("endHourM").getText());
+				E.setSfin(infoObs.getChild("endHourS").getText());
+				E.setDyyyy(infoObs.getChild("beginDateA").getText());
+				E.setDMM(infoObs.getChild("beginDateM").getText());
+				E.setDDD(infoObs.getChild("beginDateJ").getText());
+				E.setFyyyy(infoObs.getChild("endDateA").getText());
+				E.setFMM(infoObs.getChild("endDateM").getText());
+				E.setFDD(infoObs.getChild("endDateJ").getText());
+				E.setTUHN(infoObs.getChild("TUHN").getText());
 
-		E.setGps(infoObs.getChild("GPS").getText());
-		E.setGal(infoObs.getChild("GAL").getText());
-		E.setGlo(infoObs.getChild("GLO").getText());
-		E.setBei(infoObs.getChild("BEI").getText());
+				E.setGps(infoObs.getChild("GPS").getText());
+				E.setGal(infoObs.getChild("GAL").getText());
+				E.setGlo(infoObs.getChild("GLO").getText());
+				E.setBei(infoObs.getChild("BEI").getText());
 
-		R.setRq(infoObs.getChild("rq").getText());
-		E.setHtempsObs(infoObs.getChild("TobsH").getText());
-		E.setMtempsObs(infoObs.getChild("TobsM").getText());
-		E.setStempsObs(infoObs.getChild("TobsS").getText());
-		E.setJtempsObs(infoObs.getChild("TobsJ").getText());
+				R.setRq(infoObs.getChild("rq").getText());
+				E.setHtempsObs(infoObs.getChild("TobsH").getText());
+				E.setMtempsObs(infoObs.getChild("TobsM").getText());
+				E.setStempsObs(infoObs.getChild("TobsS").getText());
+				E.setJtempsObs(infoObs.getChild("TobsJ").getText());
 
-		this.C.setCtrlHARP(infoObs.getChild("HA").getText());
+				System.out.println("blabla"+E.getBei());
+				System.out.println(antenne.getNom());
 
-		if (C.getctrlHARP() == "crochet") {
-			this.A.setLectureCrochet(infoObs.getChild("LC").getText());
-			this.A.setL(infoObs.getChild("L").getText());
-			this.A.setHf(infoObs.getChild("Hf").getText());
-			this.A.setD1(infoObs.getChild("1D").getText());
-			this.A.setD2(infoObs.getChild("2D").getText());
+				Obs ObsXML = new Obs(antenne, G, D, A, E, C, R);
+				return ObsXML;
+		  
+		  } catch (FileNotFoundException e)
+		  {
+			  System.out.println("Fichier non trouvé, on retourne rien");
+			  
+				
+				return null;
+		  }
 
-		}
-
-		else if (C.getctrlHARP() == "fract") {
-			this.A.setHv1(infoObs.getChild("HV1").getText());
-			this.A.setHv2(infoObs.getChild("HV2").getText());
-			this.A.setHctrl(infoObs.getChild("Hctrl").getText());
-			this.A.setCalcp(infoObs.getChild("Hprec").getText());
-			this.A.setL(infoObs.getChild("L").getText());
-			this.A.setHf(infoObs.getChild("HF").getText());
-
-		} else if (C.getctrlHARP() == "chok") {
-
-		}
-		System.out.println(E.getGps());
-		System.out.println(antenne.getNom());
-		System.out.println(this.antenne);
-
-		Obs ObsXML = new Obs(antenne, G, D, A, E, C, R);
-		return ObsXML;
-
+	
+	
 	}
 
 }

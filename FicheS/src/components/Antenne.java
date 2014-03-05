@@ -1,6 +1,7 @@
 package components;
 
 import java.io.*;
+
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.*;
@@ -175,6 +176,8 @@ public class Antenne
 	public Antenne lectureXML(File fichier) throws FileNotFoundException, JDOMException, IOException{
 		//Création du lien vers le fichier d'antenne
 		SAXBuilder builder = new SAXBuilder();
+
+		try {
 		Document doc = builder.build(new FileInputStream(fichier));
 
 		//Récupération de la racine du fichier
@@ -195,6 +198,13 @@ public class Antenne
 		System.out.println(nomAnt+"\n"+DesIGSLect+"\n"+nbSpLect+"\n"+mesHALect+"\n"+imgLect+"\n"+RLect+"\n"+DARPBALect);
 		Antenne antenneXML = new Antenne(nomAnt,DesIGSLect, RLect,DARPBALect, mesHALect,imgLect);
 		return antenneXML;
+	} catch (FileNotFoundException e)
+	  {
+		  System.out.println("Fichier non trouvé, on retourne rien");
+		  
+			
+			return null;
+	  }
 	}
 
 
