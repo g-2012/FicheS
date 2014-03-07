@@ -90,6 +90,7 @@ public class Obs {
 		// Création d'une balise obsversation dans la racine
 		Element observation = new Element("Observation");
 		racine.addContent(observation);
+		
 
 		// Création d'une balise antenne
 		Element ant = new Element("ant");

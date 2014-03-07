@@ -40,15 +40,19 @@ public class MAIN {
 	  
 		
 //		//Test lecture d'un XML d'obs 
-		String pathobs="D:\\G2\\Projet_Java\\xmltestobs_pouet.xml";
-	File fichierobs =new  File(pathobs);
-	
+//		String pathobs="D:\\G2\\Projet_Java\\xmltestobs_pouet.xml";
+//	File fichierobs =new  File(pathobs);
+//	
+//
+//		
+//		Obs testobs=new Obs();
+//		testobs.lectureXML(fichierobs);
+//		
 
+		//test export PDF
 		
-		Obs testobs=new Obs();
-		testobs.lectureXML(fichierobs);
-		
-
+	ConvertHTMLtoPDF putain=new ConvertHTMLtoPDF();
+	putain.createPDF("buglabou");
 
 		}
 	
