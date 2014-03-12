@@ -22,5 +22,8 @@
 	<classpathentry kind="lib" path="G:/i/itext-5.5.0/itext-pdfa-5.5.0.jar"/>
 	<classpathentry kind="lib" path="G:/i/itext-5.5.0/itext-xtra-5.5.0.jar"/>
 	<classpathentry kind="lib" path="D:/G2/xmlworker-5.5.0/xmlworker-5.5.0.jar"/>
+	<classpathentry kind="lib" path="D:/G2/itext-5.5.0/itextpdf-5.5.0.jar"/>
+	<classpathentry kind="lib" path="D:/G2/itext-5.5.0/itext-pdfa-5.5.0.jar"/>
+	<classpathentry kind="lib" path="D:/G2/itext-5.5.0/itext-xtra-5.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
