@@ -57,8 +57,10 @@ public class ConvertHTMLtoPDF {
    document.open();
     
    //To convert a HTML file from the filesystem
-   String File_To_Convert = "D:\\G2\\Projet_Java\\XML\\Nouveau Document Texte2.xml";
-   String File_To_Convert2 = "D:\\G2\\Projet_Java\\XML\\Nouveau Document Texte.xml";
+//   String File_To_Convert = "D:\\G2\\Projet_Java\\XML\\Nouveau Document Texte2.xml";
+//   String File_To_Convert2 = "D:\\G2\\Projet_Java\\XML\\Nouveau Document Texte.xml";
+ String File_To_Convert = "D:\\G2\\connerie.xml";
+ String File_To_Convert2 = "D:\\G2\\conneries.XSL";
    FileInputStream fis = new FileInputStream(File_To_Convert);
    FileInputStream fis2 = new FileInputStream(File_To_Convert2);
 
